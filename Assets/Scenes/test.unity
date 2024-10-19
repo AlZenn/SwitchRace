@@ -322,7 +322,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &323769709
 Transform:
   m_ObjectHideFlags: 0
@@ -331,8 +331,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 323769708}
   m_LocalRotation: {x: 0.010654553, y: -0.044217154, z: 0.2340127, w: 0.9711692}
-  m_LocalPosition: {x: 33.4, y: -12.88, z: 0.28}
-  m_LocalScale: {x: 29.100363, y: 3.2171, z: 1}
+  m_LocalPosition: {x: 42.8354, y: -8.0526, z: 1.2471}
+  m_LocalScale: {x: 50.38437, y: 3.2171, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1887796530}
@@ -1727,8 +1727,9 @@ MonoBehaviour:
   deceleration: 25
   maxSpeed: 50
   minSpeed: 0
-  rotationSpeed: 200
-  airRotation: 20
+  rotationSpeed: 180
+  airRotation: 15
+  surtunme: 0.05
 --- !u!50 &1924406346
 Rigidbody2D:
   serializedVersion: 4

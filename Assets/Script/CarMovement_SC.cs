@@ -24,6 +24,8 @@ public class CarMovement_SC : MonoBehaviour
     private bool isInteractButtonGas; // gas butonu ile temas
     private bool isInteractButtonBreak; // fren butonu ile temas
 
+    public float surtunme = 1f;
+
     private Rigidbody2D rb;
     void Start()
     {
@@ -35,6 +37,7 @@ public class CarMovement_SC : MonoBehaviour
 
         if (isGrounded == true) // araç hareket kodu, araç yerde ise çalýþýr
         {
+
             if (Input.GetKey(KeyCode.W) || isInteractButtonGas == true)
             {
                 currentSpeed += acceleration * Time.deltaTime;
@@ -47,9 +50,15 @@ public class CarMovement_SC : MonoBehaviour
             {
                 currentSpeed = 0f;
             }
+            else if (!Input.anyKey && currentSpeed > minSpeed)
+            {
+                currentSpeed -= surtunme;
+                Debug.Log(currentSpeed);
+            }
+
 
             currentSpeed = Mathf.Clamp(currentSpeed, -maxSpeed, maxSpeed);
-            rb.velocity = new Vector2(currentSpeed, rb.velocity.y);
+            rb.velocity = new Vector2(currentSpeed, rb.velocity.y);  // Arabanýn yatay hýzýný ayarla
         }
         if (!isGrounded) // araç rotation kodu, araç havada ise çalýþýr
         {
