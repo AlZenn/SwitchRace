@@ -5,28 +5,37 @@ using UnityEngine.UI;
 
 public class CarMovement_SC : MonoBehaviour
 {
-    [Header("Character Movement Buttons")] // araç kontrol butonlarýný atama yeri
+    [Header("Character Movement Buttons")] // araï¿½ kontrol butonlarï¿½nï¿½ atama yeri
     [SerializeField] public Button button_gas; // ileri butonu atanacak.
     [SerializeField] private Button button_break; // geri butonu atanacak.
 
-    [Header("Car Properties")] // Aracýn özellikleri
-    [SerializeField] private float acceleration = 10f; // araç hýzlanma deðeri.
-    [SerializeField] private float deceleration = 25f; // araç yavaþlama deðeri.
+    [Header("Car Properties")] // Aracï¿½n ï¿½zellikleri
+    [SerializeField] public float acceleration = 10f; // araï¿½ hï¿½zlanma deï¿½eri.
+    [SerializeField] private float deceleration = 25f; // araï¿½ yavaï¿½lama deï¿½eri.
 
-    [SerializeField] private float maxSpeed = 50f;  // aracýn maksimum hýzý.
-    [SerializeField] private float minSpeed = 0f;   // aracýn minimum hýzý
-    [SerializeField] private float rotationSpeed = 100f;  // aracýn dönme hýzý.
+    [SerializeField] private float maxSpeed = 50f;  // aracï¿½n maksimum hï¿½zï¿½.
+    [SerializeField] private float minSpeed = 0f;   // aracï¿½n minimum hï¿½zï¿½
+    [SerializeField] private float rotationSpeed = 100f;  // aracï¿½n dï¿½nme hï¿½zï¿½.
     [SerializeField] private float airRotation = 30f;
 
-    private float currentSpeed = 0f; // aracýn mevcut/baþlangýç hýzý.
+    private float currentSpeed = 0f; // aracï¿½n mevcut/baï¿½langï¿½ï¿½ hï¿½zï¿½.
 
-    private bool isGrounded = false; // aracýn yerde olup olmadýgý, rotation deðeri için gerekli.
+    private bool isGrounded = false; // aracï¿½n yerde olup olmadï¿½gï¿½, rotation deï¿½eri iï¿½in gerekli.
     private bool isInteractButtonGas; // gas butonu ile temas
     private bool isInteractButtonBreak; // fren butonu ile temas
 
     public float surtunme = 1f;
 
     private Rigidbody2D rb;
+    public static CarMovement_SC instance;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -35,7 +44,7 @@ public class CarMovement_SC : MonoBehaviour
     void Update()
     {
 
-        if (isGrounded == true) // araç hareket kodu, araç yerde ise çalýþýr
+        if (isGrounded == true) // araï¿½ hareket kodu, araï¿½ yerde ise ï¿½alï¿½ï¿½ï¿½r
         {
 
             if (Input.GetKey(KeyCode.W) || isInteractButtonGas == true)
@@ -53,14 +62,14 @@ public class CarMovement_SC : MonoBehaviour
             else if (!Input.anyKey && currentSpeed > minSpeed)
             {
                 currentSpeed -= surtunme;
-                Debug.Log(currentSpeed);
+                //Debug.Log(currentSpeed);
             }
 
 
             currentSpeed = Mathf.Clamp(currentSpeed, -maxSpeed, maxSpeed);
-            rb.velocity = new Vector2(currentSpeed, rb.velocity.y);  // Arabanýn yatay hýzýný ayarla
+            rb.velocity = new Vector2(currentSpeed, rb.velocity.y);  // Arabanï¿½n yatay hï¿½zï¿½nï¿½ ayarla
         }
-        if (!isGrounded) // araç rotation kodu, araç havada ise çalýþýr
+        if (!isGrounded) // araï¿½ rotation kodu, araï¿½ havada ise ï¿½alï¿½ï¿½ï¿½r
         {
             if (Input.GetKey(KeyCode.W) || isInteractButtonGas == true)
             {
@@ -77,7 +86,7 @@ public class CarMovement_SC : MonoBehaviour
         }
     }
 
-    // -zen1.1- bu kýsým butonlara event trigger olarak atalý -zen1.1-
+    // -zen1.1- bu kï¿½sï¿½m butonlara event trigger olarak atalï¿½ -zen1.1-
     public void gasTrue() 
     {
         isInteractButtonGas = true;
@@ -94,10 +103,10 @@ public class CarMovement_SC : MonoBehaviour
     {
         isInteractButtonBreak = false;
     }
-    /// -zen1.1- bu kýsým butonlara event trigger olarak atalý -zen1.1-
+    /// -zen1.1- bu kï¿½sï¿½m butonlara event trigger olarak atalï¿½ -zen1.1-
 
 
-    /// -zen1.2- araç yerde mi kontrol scripti -zen1.2-
+    /// -zen1.2- araï¿½ yerde mi kontrol scripti -zen1.2-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
@@ -112,5 +121,5 @@ public class CarMovement_SC : MonoBehaviour
             isGrounded = false;
         }
     }
-    /// -zen1.2- araç yerde mi kontrol scripti -zen1.2-
+    /// -zen1.2- araï¿½ yerde mi kontrol scripti -zen1.2-
 }
