@@ -183,18 +183,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 98
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
-    m_MaxSize: 40
+    m_MaxSize: 160
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: geri
+  m_Text: fren
 --- !u!222 &109604312
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -399,8 +399,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 344, y: -174}
-  m_SizeDelta: {x: 49.4745, y: 49.2793}
+  m_AnchoredPosition: {x: 650, y: -432.461}
+  m_SizeDelta: {x: 116.2534, y: 118.468}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &294907245
 MonoBehaviour:
@@ -723,18 +723,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 98
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_MinSize: 9
+    m_MaxSize: 118
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ileri
+  m_Text: gas
 --- !u!222 &350536033
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -757,7 +757,7 @@ GameObject:
   - component: {fileID: 427105304}
   - component: {fileID: 427105307}
   m_Layer: 5
-  m_Name: geri
+  m_Name: fren
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -781,8 +781,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -289, y: -180.3}
-  m_SizeDelta: {x: 161.6, y: 50}
+  m_AnchoredPosition: {x: -745, y: -433.7}
+  m_SizeDelta: {x: 302.8706, y: 120.79}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &427105304
 MonoBehaviour:
@@ -959,8 +959,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 411, y: -174}
-  m_SizeDelta: {x: 49.4745, y: 49.2793}
+  m_AnchoredPosition: {x: 800, y: -432.461}
+  m_SizeDelta: {x: 116.2534, y: 118.468}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &490801182
 MonoBehaviour:
@@ -1122,7 +1122,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.7425299, y: -1.21, z: -10}
+  m_LocalPosition: {x: 1.1211109, y: -1.21, z: -10}
   m_LocalScale: {x: 0.99999994, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1205,8 +1205,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 277, y: -174}
-  m_SizeDelta: {x: 49.4745, y: 49.2793}
+  m_AnchoredPosition: {x: 500, y: -432.461}
+  m_SizeDelta: {x: 116.2534, y: 118.468}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &739769310
 MonoBehaviour:
@@ -1304,7 +1304,7 @@ GameObject:
   - component: {fileID: 842626719}
   - component: {fileID: 842626722}
   m_Layer: 5
-  m_Name: ileri
+  m_Name: gas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1328,8 +1328,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -116.11, y: -180.3}
-  m_SizeDelta: {x: 161.6, y: 50}
+  m_AnchoredPosition: {x: -420.9696, y: -433.7021}
+  m_SizeDelta: {x: 302.8706, y: 120.7942}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &842626719
 MonoBehaviour:
@@ -2127,7 +2127,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1605919264}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.7425299, y: -1.21, z: -10}
+  m_LocalPosition: {x: 1.1211109, y: -1.21, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2709,8 +2709,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 208, y: -174}
-  m_SizeDelta: {x: 49.4745, y: 49.2793}
+  m_AnchoredPosition: {x: 350, y: -432.461}
+  m_SizeDelta: {x: 116.2534, y: 118.468}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1583546100863531940
 PrefabInstance:
