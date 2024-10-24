@@ -8,7 +8,7 @@ public class NitroSystem : MonoBehaviour
 {
     public CarMaterialController carMaterialController;  // Arabanın materyalini kontrol eden script
     public Material[] nitroMaterials;  // Nitro için 4 farklı materyal
-    public float speedBoost = 5f;      // Hız artırma miktarı
+    public float speedBoost = 10f;      // Hız artırma miktarı
     public float boostDuration = 5f;   // Hızlanma süresi
     public GameObject player;          // Oyuncu GameObject'i
     public ParticleSystem nitroParticles;
@@ -52,9 +52,17 @@ public class NitroSystem : MonoBehaviour
             nitroParticles.Play();
             Destroy(GameObject.FindWithTag("Nitro"), .5f);
 
-            yield return new WaitForSeconds(boostDuration); // 5 saniye bekle
+            float elapsedTime = 0f; // Geçen süre
+            float decreaseAmount = 2f; // Hız azalması miktarı
 
-            // Oyuncunun hızını normale döndür
+            while (elapsedTime < boostDuration)
+            {
+                player.GetComponent<CarMovement_SC>().acceleration -= decreaseAmount * Time.deltaTime; // Hızı azalt
+                elapsedTime += Time.deltaTime; // Geçen süreyi güncelle
+                yield return null; // Bir sonraki frame'e geç
+            }
+
+            // Süre sonunda oyuncunun hızını normale döndür
             player.GetComponent<CarMovement_SC>().acceleration = normalSpeed;
             nitroParticles.Stop();
             isBoosted = false;
@@ -64,6 +72,6 @@ public class NitroSystem : MonoBehaviour
     private void EndGame()
     {
         // Oyun sonlandırma işlemi (örneğin, sahneyi yeniden başlat)
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
