@@ -5,26 +5,28 @@ using UnityEngine.UI;
 
 public class CarMovement_SC : MonoBehaviour
 {
-    [Header("Character Movement Buttons")] // ara� kontrol butonlar�n� atama yeri
+    [Header("Character Movement Buttons")] // araç kontrol butonlarını atama yeri
     [SerializeField] public Button button_gas; // ileri butonu atanacak.
     [SerializeField] private Button button_break; // geri butonu atanacak.
 
-    [Header("Car Properties")] // Arac�n �zellikleri
-    [SerializeField] public float acceleration = 10f; // ara� h�zlanma de�eri.
-    [SerializeField] private float deceleration = 25f; // ara� yava�lama de�eri.
+    [Header("Car Properties")] // Aracın özellikleri
+    [SerializeField] public float acceleration = 10f; // araç hızlanma değeri.
+    [SerializeField] private float deceleration = 25f; // araç yavaşlama değeri.
 
-    [SerializeField] private float maxSpeed = 50f;  // arac�n maksimum h�z�.
-    [SerializeField] private float minSpeed = 0f;   // arac�n minimum h�z�
-    [SerializeField] private float rotationSpeed = 100f;  // arac�n d�nme h�z�.
+    [SerializeField] private float maxSpeed = 50f;  // aracın maksimum hızı
+    [SerializeField] private float minSpeed = 0f;   // aracın minimum hızı
+
+    [SerializeField] private float rotationSpeed = 100f;  // aracın dönme hızı.
     [SerializeField] private float airRotation = 30f;
+    [SerializeField] private float speedControl;
 
-    private float currentSpeed = 0f; // arac�n mevcut/ba�lang�� h�z�.
+    //private float currentSpeed = 0f; // aracın mevcut/başlangıç hızı.
 
-    private bool isGrounded = false; // arac�n yerde olup olmad�g�, rotation de�eri i�in gerekli.
+    private bool isGrounded = false; // aracın yerde olup olmadıgı, rotation degeri için gerekli.
     private bool isInteractButtonGas; // gas butonu ile temas
     private bool isInteractButtonBreak; // fren butonu ile temas
 
-    public float surtunme = 1f;
+    public float surtunme = 0.5f;
 
     private Rigidbody2D rb;
     public static CarMovement_SC instance;
@@ -44,38 +46,39 @@ public class CarMovement_SC : MonoBehaviour
     void Update()
     {
 
-        if (isGrounded == true) // ara� hareket kodu, ara� yerde ise �al���r
+        if (isGrounded == true) // araç hareket kodu, araç yerde ise çalışır
         {
-
             if (Input.GetKey(KeyCode.W) || isInteractButtonGas == true)
             {
-                currentSpeed += acceleration * Time.deltaTime;
+                if (rb.velocity.x < maxSpeed)
+                {
+                rb.AddForce(Vector2.right * acceleration * speedControl);
+                }
             }
-            else if (Input.GetKey(KeyCode.S) && currentSpeed > minSpeed || isInteractButtonBreak == true && currentSpeed > minSpeed)
+            else if (Input.GetKey(KeyCode.S) && rb.velocity.x > minSpeed || isInteractButtonBreak == true && rb.velocity.x > minSpeed)
             {
-                currentSpeed -= deceleration * Time.deltaTime;
+                if (rb.velocity.x > minSpeed + 1) // burda addforce ile araç minik minik geriye gidiyordu +1 koyunca düzeldi ama 1f ileri gideceginden de direkt 1 hızı olursa otomatik fren yapacak
+                {
+                    rb.AddForce(Vector2.left * deceleration * speedControl);
+                }
+                else
+                {
+                    rb.velocity = new Vector2(0, rb.velocity.y);
+                }
             }
-            else if (currentSpeed < minSpeed)
+            else if (!Input.anyKey && rb.velocity.x > minSpeed)
             {
-                currentSpeed = 0f;
+                rb.AddForce(Vector2.left * surtunme);
             }
-            else if (!Input.anyKey && currentSpeed > minSpeed)
-            {
-                currentSpeed -= surtunme;
-                //Debug.Log(currentSpeed);
-            }
-
-
-            currentSpeed = Mathf.Clamp(currentSpeed, -maxSpeed, maxSpeed);
-            rb.velocity = new Vector2(currentSpeed, rb.velocity.y);  // Araban�n yatay h�z�n� ayarla
         }
-        if (!isGrounded) // ara� rotation kodu, ara� havada ise �al���r
+
+        if (!isGrounded) // araç rotation kodu, araç havada ise çalışır
         {
             if (Input.GetKey(KeyCode.W) || isInteractButtonGas == true)
             {
                 rb.rotation -= rotationSpeed * Time.deltaTime;
             }
-            else if (Input.GetKey(KeyCode.S) && currentSpeed > minSpeed || isInteractButtonBreak == true && currentSpeed > minSpeed)
+            else if (Input.GetKey(KeyCode.S) && rb.velocity.x > minSpeed || isInteractButtonBreak == true && rb.velocity.x > minSpeed)
             {
                 rb.rotation += rotationSpeed * Time.deltaTime;
             }
@@ -86,8 +89,8 @@ public class CarMovement_SC : MonoBehaviour
         }
     }
 
-    // -zen1.1- bu k�s�m butonlara event trigger olarak atal� -zen1.1-
-    public void gasTrue() 
+    // -zen1.1- bu kısım butonlara event trigger olarak atalı -zen1.1-
+    public void gasTrue()
     {
         isInteractButtonGas = true;
     }
@@ -103,10 +106,9 @@ public class CarMovement_SC : MonoBehaviour
     {
         isInteractButtonBreak = false;
     }
-    /// -zen1.1- bu k�s�m butonlara event trigger olarak atal� -zen1.1-
+    /// -zen1.1- bu kısım butonlara event trigger olarak atalı -zen1.1-
 
-
-    /// -zen1.2- ara� yerde mi kontrol scripti -zen1.2-
+    /// -zen1.2- araç yerde mi kontrol scripti -zen1.2-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
@@ -121,5 +123,5 @@ public class CarMovement_SC : MonoBehaviour
             isGrounded = false;
         }
     }
-    /// -zen1.2- ara� yerde mi kontrol scripti -zen1.2-
+    /// -zen1.2- araç yerde mi kontrol scripti -zen1.2-
 }

@@ -36,7 +36,7 @@ public class NitroSystem : MonoBehaviour
             }
             else
             {
-                Debug.Log("Yanlış materyal! Oyun bitti.");
+                
                 EndGame();
             }
         }
