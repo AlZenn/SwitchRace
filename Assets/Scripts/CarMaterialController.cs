@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CarMaterialController : MonoBehaviour
 {
-    public Renderer carRenderer; // Arabanın Renderer bileşeni (Materyal için)
+    public Renderer [] renderers; // Arabanın Renderer bileşeni (Materyal için)
     public Button redButton;     // Kırmızı buton
     public Button blueButton;    // Mavi buton
     public Button greenButton;   // Yeşil buton
@@ -31,7 +31,10 @@ public class CarMaterialController : MonoBehaviour
     // Arabanın materyalini değiştiren fonksiyon
     void ChangeCarMaterial(Material newMaterial)
     {
-        carRenderer.material = newMaterial;
+        foreach (Renderer renderer in renderers)
+        {
+            renderer.material = newMaterial;
+        }
         currentMat = newMaterial;
         Debug.Log(currentMat);
     }
