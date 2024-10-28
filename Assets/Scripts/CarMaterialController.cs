@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CarMaterialController : MonoBehaviour
 {
-    public Renderer carRenderer; // Arabanın Renderer bileşeni (Materyal için)
+    public Renderer [] renderers; // Arabanın Renderer bileşeni (Materyal için)
     public Button redButton;     // Kırmızı buton
     public Button blueButton;    // Mavi buton
     public Button greenButton;   // Yeşil buton
@@ -15,10 +15,15 @@ public class CarMaterialController : MonoBehaviour
     public Material blueMaterial;    // Mavi materyal
     public Material greenMaterial;   // Yeşil materyal
     public Material yellowMaterial;  // Sarı materyal
+    public Material whiteMaterial;  // Sarı materyal
 
     public Material currentMat;
 
     // Başlangıçta butonlara tıklama olaylarını ekliyoruz
+    private void Awake()
+    {
+        currentMat = whiteMaterial; // başlangıç materyali // diğer kodlarda erişebilmek için.
+    }
     void Start()
     {
         // Buton tıklamaları için olay dinleyicileri ekliyoruz
@@ -31,8 +36,12 @@ public class CarMaterialController : MonoBehaviour
     // Arabanın materyalini değiştiren fonksiyon
     void ChangeCarMaterial(Material newMaterial)
     {
-        carRenderer.material = newMaterial;
-        currentMat = newMaterial;
-        Debug.Log(currentMat);
+        foreach (Renderer renderer in renderers)
+        {
+            renderer.material = newMaterial;
+            currentMat = newMaterial; // diğer kodlarda erişebilmek için.
+        }
+        
+        //Debug.Log(currentMat);
     }
 }

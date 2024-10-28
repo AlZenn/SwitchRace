@@ -10,18 +10,18 @@ public class TireMovement_SC : MonoBehaviour
     [SerializeField] private Rigidbody2D _backTireRB;
 
     [Header("Car Properties")]
-    [SerializeField] private float _speed = 150f;  // Tekerlek hareket hızı
-    [SerializeField] public float maxSpeed = 300f;  // Tekerlekler için maksimum tork
-    [SerializeField] private float minSpeed = 0f;   // Tekerlekler için minimum tork
-    [SerializeField] private float rotationSpeed = 100f;  // Araç dönme hızı
-    [SerializeField] private float airRotation = 30f; // Araç havadayken dönme hızı
+    [SerializeField] private float _speed = 350f;  // Tekerlek hareket hÄ±zÄ±
+    [SerializeField] public float maxSpeed = 3500f;  // Tekerlekler iÃ§in maksimum hÄ±z
+    [SerializeField] private float minSpeed = 4f;   // Tekerlekler iÃ§in minimum hÄ±z
+    [SerializeField] private float rotationSpeed = 180f;  // AraÃ§ dÃ¶nÃ¼ÅŸ hÄ±zÄ±
+    [SerializeField] private float airRotation = 30f; // AraÃ§ havadayken dÃ¶nÃ¼ÅŸ hÄ±zÄ±
 
-    public float nitroSpeed = 0f; // Nitro hızı ekledik
+    public float nitroSpeed = 0f; // Nitro hÄ±zÄ±
 
     private Rigidbody2D rb;
-    public bool isGrounded = false; // Araç yere temas ediyor mu?
-    private bool isInteractButtonGas; // İleri butonuna temas kontrolü
-    private bool isInteractButtonBreak; // Fren butonuna temas kontrolü
+    public bool isGrounded = false; // AraÃ§ yere temas ediyor mu?
+    private bool isInteractButtonGas; // Gaz butonuna basÄ±lma durumu
+    private bool isInteractButtonBreak; // Fren butonuna basÄ±lma durumu
 
     void Start()
     {
@@ -30,73 +30,73 @@ public class TireMovement_SC : MonoBehaviour
 
     void FixedUpdate()
     {
-        
+
         if (isGrounded)
         {
-            // gas butonuna basılınca hareket etmesi
+            // Gaz butonuna basÄ±ldÄ±ÄŸÄ±nda hareket etmesi
             if (isInteractButtonGas)
             {
                 if (Mathf.Abs(_frontTireRB.angularVelocity) < maxSpeed)
                 {
-                    _frontTireRB.AddTorque((-_speed + nitroSpeed) * Time.fixedDeltaTime); // Nitro hızını ekle
+                    _frontTireRB.AddTorque((-_speed + nitroSpeed) * Time.fixedDeltaTime); // Nitro hÄ±zÄ±nÄ± ekle
                 }
 
                 if (Mathf.Abs(_backTireRB.angularVelocity) < maxSpeed)
                 {
-                    _backTireRB.AddTorque((-_speed + nitroSpeed) * Time.fixedDeltaTime); // Nitro hızını ekle
+                    _backTireRB.AddTorque((-_speed + nitroSpeed) * Time.fixedDeltaTime); // Nitro hÄ±zÄ±nÄ± ekle
                 }
             }
 
-            // Apply braking force when Break button is pressed
+            // Fren butonuna basÄ±ldÄ±ÄŸÄ±nda fren kuvveti uygula
             if (isInteractButtonBreak)
             {
                 if (_backTireRB.angularVelocity > minSpeed && _backTireRB.angularVelocity < maxSpeed)
                 {
-                    _backTireRB.AddTorque(_speed * Time.fixedDeltaTime);  // İleriye tork uygula
+                    _backTireRB.AddTorque(_speed * Time.fixedDeltaTime);  // Tork uygula
                 }
                 else
                 {
-                    _backTireRB.angularVelocity = 0; // hız 0 ise tekerleği durdur
+                    _backTireRB.angularVelocity = 0; // HÄ±z 0 ise tekerleÄŸi durdur
                 }
 
                 if (_frontTireRB.angularVelocity > minSpeed && _frontTireRB.angularVelocity < maxSpeed)
                 {
-                    _frontTireRB.AddTorque(_speed * Time.fixedDeltaTime);  // Tersine tork uygula
+                    _frontTireRB.AddTorque(_speed * Time.fixedDeltaTime);  // Tork uygula
                 }
                 else
                 {
-                    _frontTireRB.angularVelocity = 0; // hız 0 ise tekerleği durdur
+                    _frontTireRB.angularVelocity = 0; // HÄ±z 0 ise tekerleÄŸi durdur
                 }
             }
         }
 
-        // Aracın dönmesi ve hava dönüşü
+        // AracÄ±n dÃ¶nÃ¼ÅŸ hareketi ve havada dÃ¶nÃ¼ÅŸ
         if (!isGrounded)
         {
             float rotationAmount = rotationSpeed * Time.fixedDeltaTime;
 
             if (isInteractButtonGas)
             {
-                rb.MoveRotation(rb.rotation - rotationAmount); // İleri döndürme
+                rb.MoveRotation(rb.rotation + rotationAmount); // Ä°leri dÃ¶nÃ¼ÅŸ
             }
             else if (isInteractButtonBreak)
             {
-                rb.MoveRotation(rb.rotation + rotationAmount); // Geri döndürme
+                rb.MoveRotation(rb.rotation - rotationAmount); // Geri dÃ¶nÃ¼ÅŸ
             }
             else
             {
-                rb.MoveRotation(rb.rotation - airRotation * Time.fixedDeltaTime); // Dönüş yavaşlar
+                rb.MoveRotation(rb.rotation - airRotation * Time.fixedDeltaTime); // YavaÅŸ dÃ¶nÃ¼ÅŸ
             }
         }
     }
 
-    // Gaz ve Fren kontrol fonksiyonları
+    // Gaz ve Fren kontrol fonksiyonlarÄ±
     public void gasTrue() => isInteractButtonGas = true;
     public void gasFalse() => isInteractButtonGas = false;
     public void breakTrue() => isInteractButtonBreak = true;
     public void breakFalse() => isInteractButtonBreak = false;
 
-    public float MaxSpeed
+    public float MaxSpeed // Nitro iÃ§in hÄ±zÄ± public yaptÄ±m
     {
         get { return maxSpeed; }
         set { maxSpeed = value; }

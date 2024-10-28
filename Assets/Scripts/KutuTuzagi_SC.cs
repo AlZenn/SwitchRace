@@ -11,7 +11,7 @@ public class KutuTuzagi_SC : MonoBehaviour
         carMaterialController = GameObject.FindWithTag("Player").GetComponent<CarMaterialController>();
     }
 
-    private void OnTriggerStay2D(Collider2D collision) // kýrmýzý araç, hareket tuzaðýndan geçer
+    private void OnTriggerStay2D(Collider2D collision) // mavi araç, hareket tuzaðýndan geçer
     {
         if (carMaterialController.currentMat.name != "BlueMaterial")
         {
