@@ -10,18 +10,18 @@ public class TireMovement_SC : MonoBehaviour
     [SerializeField] private Rigidbody2D _backTireRB;
 
     [Header("Car Properties")]
-    [SerializeField] private float _speed = 150f;  // Tekerlek hareket hýzý
-    [SerializeField] public float maxSpeed = 300f;  // Tekerlekler için maksimum tork
-    [SerializeField] private float minSpeed = 0f;   // Tekerlekler için minimum tork
-    [SerializeField] private float rotationSpeed = 100f;  // Araç dönme hýzý
-    [SerializeField] private float airRotation = 30f; // Araç havadayken dönme hýzý
+    [SerializeField] private float _speed = 150f;  // Tekerlek hareket hï¿½zï¿½
+    [SerializeField] public float maxSpeed = 300f;  // Tekerlekler iï¿½in maksimum tork
+    [SerializeField] private float minSpeed = 0f;   // Tekerlekler iï¿½in minimum tork
+    [SerializeField] private float rotationSpeed = 100f;  // Araï¿½ dï¿½nme hï¿½zï¿½
+    [SerializeField] private float airRotation = 30f; // Araï¿½ havadayken dï¿½nme hï¿½zï¿½
 
-    public float nitroSpeed = 0f; // Nitro hýzý ekledik
+    public float nitroSpeed = 0f; // Nitro hï¿½zï¿½ ekledik
 
     private Rigidbody2D rb;
-    public bool isGrounded = false; // Araç yere temas ediyor mu?
-    private bool isInteractButtonGas; // Ýleri butonuna temas kontrolü
-    private bool isInteractButtonBreak; // Fren butonuna temas kontrolü
+    public bool isGrounded = false; // Araï¿½ yere temas ediyor mu?
+    private bool isInteractButtonGas; // ï¿½leri butonuna temas kontrolï¿½
+    private bool isInteractButtonBreak; // Fren butonuna temas kontrolï¿½
 
     void Start()
     {
@@ -33,17 +33,17 @@ public class TireMovement_SC : MonoBehaviour
         
         if (isGrounded)
         {
-            // gas butonuna basýlýnca hareket etmesi
+            // gas butonuna basï¿½lï¿½nca hareket etmesi
             if (isInteractButtonGas)
             {
                 if (Mathf.Abs(_frontTireRB.angularVelocity) < maxSpeed)
                 {
-                    _frontTireRB.AddTorque((-_speed + nitroSpeed) * Time.fixedDeltaTime); // Nitro hýzýný ekle
+                    _frontTireRB.AddTorque((-_speed + nitroSpeed) * Time.fixedDeltaTime); // Nitro hï¿½zï¿½nï¿½ ekle
                 }
 
                 if (Mathf.Abs(_backTireRB.angularVelocity) < maxSpeed)
                 {
-                    _backTireRB.AddTorque((-_speed + nitroSpeed) * Time.fixedDeltaTime); // Nitro hýzýný ekle
+                    _backTireRB.AddTorque((-_speed + nitroSpeed) * Time.fixedDeltaTime); // Nitro hï¿½zï¿½nï¿½ ekle
                 }
             }
 
@@ -52,11 +52,11 @@ public class TireMovement_SC : MonoBehaviour
             {
                 if (_backTireRB.angularVelocity > minSpeed && _backTireRB.angularVelocity < maxSpeed)
                 {
-                    _backTireRB.AddTorque(_speed * Time.fixedDeltaTime);  // Ýleriye tork uygula
+                    _backTireRB.AddTorque(_speed * Time.fixedDeltaTime);  // ï¿½leriye tork uygula
                 }
                 else
                 {
-                    _backTireRB.angularVelocity = 0; // hýz 0 ise tekerleði durdur
+                    _backTireRB.angularVelocity = 0; // hï¿½z 0 ise tekerleï¿½i durdur
                 }
 
                 if (_frontTireRB.angularVelocity > minSpeed && _frontTireRB.angularVelocity < maxSpeed)
@@ -65,32 +65,32 @@ public class TireMovement_SC : MonoBehaviour
                 }
                 else
                 {
-                    _frontTireRB.angularVelocity = 0; // hýz 0 ise tekerleði durdur
+                    _frontTireRB.angularVelocity = 0; // hï¿½z 0 ise tekerleï¿½i durdur
                 }
             }
         }
 
-        // Aracýn dönmesi ve hava dönüþü
+        // Aracï¿½n dï¿½nmesi ve hava dï¿½nï¿½ï¿½ï¿½
         if (!isGrounded)
         {
             float rotationAmount = rotationSpeed * Time.fixedDeltaTime;
 
             if (isInteractButtonGas)
             {
-                rb.MoveRotation(rb.rotation - rotationAmount); // Ýleri döndürme
+                rb.MoveRotation(rb.rotation + rotationAmount); // ï¿½leri dï¿½ndï¿½rme
             }
             else if (isInteractButtonBreak)
             {
-                rb.MoveRotation(rb.rotation + rotationAmount); // Geri döndürme
+                rb.MoveRotation(rb.rotation - rotationAmount); // Geri dï¿½ndï¿½rme
             }
             else
             {
-                rb.MoveRotation(rb.rotation - airRotation * Time.fixedDeltaTime); // Dönüþ yavaþlar
+                rb.MoveRotation(rb.rotation + airRotation * Time.fixedDeltaTime); // Dï¿½nï¿½ï¿½ yavaï¿½lar
             }
         }
     }
 
-    // Gaz ve Fren kontrol fonksiyonlarý
+    // Gaz ve Fren kontrol fonksiyonlarï¿½
     public void gasTrue() => isInteractButtonGas = true;
     public void gasFalse() => isInteractButtonGas = false;
     public void breakTrue() => isInteractButtonBreak = true;
