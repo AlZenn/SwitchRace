@@ -23,7 +23,7 @@ public class DikenTuzagi_SC : MonoBehaviour
             // hiçbir þey olmayacak.
         }
     }
-    private void reloadScene()
+    public void reloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
