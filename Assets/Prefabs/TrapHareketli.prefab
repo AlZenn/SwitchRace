@@ -72,8 +72,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5231867369316027986}
   - component: {fileID: 5231867369316027987}
-  - component: {fileID: 8217038109281015180}
   - component: {fileID: 5231867369316027997}
+  - component: {fileID: 6195727688805647011}
   m_Layer: 0
   m_Name: Testere
   m_TagString: Untagged
@@ -138,7 +138,7 @@ SpriteRenderer:
   m_SortingLayerID: 1571866469
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0812b0635d8e89d4e8eb61bc37c36473, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d55fc0c6318398640816847b0fa2da0b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -149,37 +149,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &8217038109281015180
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5231867369316027984}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 22.983639, y: 19.37}
-    newSize: {x: 27.04, y: 27.226116}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -5.5622506, y: 9.723734}
-      - {x: -11.585905, y: 0.009004131}
-      - {x: -5.5238843, y: -9.704036}
-      - {x: 5.544299, y: -9.6764965}
-      - {x: 11.641659, y: -0.07862072}
-      - {x: 5.5843306, y: 9.722508}
 --- !u!114 &5231867369316027997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,6 +165,22 @@ MonoBehaviour:
   target2: {fileID: 1965706031}
   speed: 5
   carMaterialController: {fileID: 0}
+--- !u!58 &6195727688805647011
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5231867369316027984}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 12.97766
 --- !u!1 &5231867369636275275
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,7 +254,7 @@ SpriteRenderer:
   m_SortingLayerID: 1571866469
   m_SortingLayer: -1
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: 0812b0635d8e89d4e8eb61bc37c36473, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d55fc0c6318398640816847b0fa2da0b, type: 3}
   m_Color: {r: 0.6509434, g: 0.6509434, b: 0.6509434, a: 0.5019608}
   m_FlipX: 0
   m_FlipY: 0
