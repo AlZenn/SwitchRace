@@ -100,8 +100,17 @@ public class PlatformController_SC : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         collider.isTrigger = triggerValue; // Uyumlu deðilse trigger'ý true yap
-        tireMovementSc.isGrounded = false; // bug olmamasý için renkli platformlardan düþerken sorun kalkýyor. // eðer rotation bozuk olursa 0.1 delayla çalýþtýrýlsýn.
+
+        // 0.1 saniye bekledikten sonra isGrounded'ý false yap
+        StartCoroutine(SetIsGroundedFalseWithDelay());
     }
+
+    private IEnumerator SetIsGroundedFalseWithDelay()
+    {
+        yield return new WaitForSeconds(0.2f);
+        tireMovementSc.isGrounded = false; // gecikmeli olarak isGrounded false yapýlýr platform geçiþlerindeki bugu önlemesi için yapýldý.
+    }
+
 
     private bool IsColorMatch(Material platformMaterial, Material platformReferenceMaterial, Material carMaterial)
     {
