@@ -8,9 +8,10 @@ public class TireGroundController_SC : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             tiresc.isGrounded = true;
+            //Debug.Log("Tire is grounded: " + tiresc.isGrounded);
 
             // Daha önce çalýþan bir coroutine varsa onu iptal ediyoruz
             if (groundCheckCoroutine != null)
@@ -23,7 +24,7 @@ public class TireGroundController_SC : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             // Coroutine baþlatýyoruz ve 0.5 saniye bekliyoruz
             if (groundCheckCoroutine == null)
@@ -41,6 +42,7 @@ public class TireGroundController_SC : MonoBehaviour
         if (!Physics2D.OverlapCircle(transform.position, 0.1f, LayerMask.GetMask("Ground")))
         {
             tiresc.isGrounded = false;
+            //Debug.Log("Tire is grounded: " + tiresc.isGrounded);
         }
 
         groundCheckCoroutine = null;
