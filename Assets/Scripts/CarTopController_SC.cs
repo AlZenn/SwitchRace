@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+//using Unity.VisualScripting; // deneme kütüphane
 using UnityEngine;
-using UnityEngine.PlayerLoop;
+//using UnityEngine.PlayerLoop; // deneme kütüphane
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
