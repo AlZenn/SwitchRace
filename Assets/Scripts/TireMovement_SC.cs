@@ -16,8 +16,10 @@ public class TireMovement_SC : MonoBehaviour
     [SerializeField] private float rotationSpeed = 180f;  // Araç dönüş hızı
     [SerializeField] private float airRotation = 30f; // Araç havadayken dönüş hızı
 
+    [Header("NitroProperties")]
     public float nitroSpeed = 0f; // Nitro hızı
 
+    
     private Rigidbody2D rb;
     public bool isGrounded = false; // Araç yere temas ediyor mu?
     private bool isInteractButtonGas; // Gaz butonuna basılma durumu
@@ -25,7 +27,7 @@ public class TireMovement_SC : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>(); // Player'in rigidbodysini aldık
     }
 
     void FixedUpdate()

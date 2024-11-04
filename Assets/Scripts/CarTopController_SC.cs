@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CarTopController_SC : MonoBehaviour
 {
@@ -14,6 +16,13 @@ public class CarTopController_SC : MonoBehaviour
     [SerializeField] private float _tavanLifeTime = 2f; // temas süresi
     [SerializeField] private bool isContact = false; // temas ediyor mu
 
+    [SerializeField] private GameObject denemeYazi;                    // deneme
+    [SerializeField] private Text denemeYaziText;                    // deneme
+
+    private void Awake()
+    {
+        denemeYazi.SetActive(false);
+    }
 
     private void OnCollisionEnter2D(Collision2D col)
     {
@@ -30,7 +39,8 @@ public class CarTopController_SC : MonoBehaviour
         {
             isContact = false;
             _contactTime = 0f;
-        }
+            denemeYazi.SetActive(false);                      // deneme
+        } 
     }
 
     void Update()
@@ -38,6 +48,8 @@ public class CarTopController_SC : MonoBehaviour
         if (isContact) // eðer temas varsa saniye saysýn
         {
             _contactTime += Time.deltaTime; // süre arttýr
+            denemeYaziText.text = _contactTime.ToString("F2") + " uwu";                     // deneme
+            denemeYazi.SetActive(true);                     // deneme
 
             if (_contactTime >= _tavanLifeTime)
             {
@@ -62,7 +74,7 @@ public class CarTopController_SC : MonoBehaviour
         #endregion
 
         //playeri yok et ve sahneyi tekrar yükle
-        Destroy(_player);
+        //Destroy(_player);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
         yield return null; // cooroutine hatasýný engellemek için.
