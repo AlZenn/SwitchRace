@@ -6,21 +6,21 @@ using UnityEngine.SceneManagement;
 public class KutuTuzagi_SC : MonoBehaviour
 {
     [SerializeField] private CarMaterialController carMaterialController;
-    void Start()
+    void Awake()
     {
         carMaterialController = GameObject.FindWithTag("Player").GetComponent<CarMaterialController>();
     }
 
-    private void OnTriggerStay2D(Collider2D collision) // mavi araç, hareket tuzaðýndan geçer
+    private void OnTriggerStay2D(Collider2D collision) // mavi araï¿½, hareket tuzaï¿½ï¿½ndan geï¿½er
     {
         if (carMaterialController.currentMat.name != "BlueMaterial")
         {
             Destroy(collision.gameObject);
-            reloadScene(); // animasyon koyulacaksa bekleme kodu yazýlabilir.
+            reloadScene(); // animasyon koyulacaksa bekleme kodu yazï¿½labilir.
         }
         else if (carMaterialController.currentMat.name == "BlueMaterial")
         {
-            // hiçbir þey olmayacak.
+            // hiï¿½bir ï¿½ey olmayacak.
         }
     }
     private void reloadScene()

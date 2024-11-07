@@ -35,8 +35,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _Invert: 1
-    - _Position: 1.44
+    - _Position: 2.43
     m_Colors:
-    - _Bottom_Color: {r: 0.039215688, g: 0.039215688, b: 0.039215688, a: 0}
-    - _Top_Color: {r: 0.028301895, g: 0.028301895, b: 0.028301895, a: 0}
+    - _Bottom_Color: {r: 0.02702, g: 0.027509999, b: 0.027999999, a: 0}
+    - _Top_Color: {r: 0.02745098, g: 0.02347608, b: 0.017513726, a: 0}
   m_BuildTextureStacks: []
