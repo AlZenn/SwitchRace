@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.U2D; // SpriteShapeRenderer için gerekli
+using UnityEngine.U2D; // SpriteShapeRenderer iï¿½in gerekli
 
 public class PlatformController_SC : MonoBehaviour
 {
@@ -21,11 +21,11 @@ public class PlatformController_SC : MonoBehaviour
 
     private void Start()
     {
-        // Tekerleklerin collider'larýný alýyoruz
+        // Tekerleklerin collider'larï¿½nï¿½ alï¿½yoruz
         tireFrontCollider = tireFront.GetComponent<Collider2D>();
         tireBackCollider = tireBack.GetComponent<Collider2D>();
 
-        // CarMaterialController scriptine eriþim saðlýyoruz
+        // CarMaterialController scriptine eriï¿½im saï¿½lï¿½yoruz
         carMaterialController = GetComponent<CarMaterialController>();
     }
 
@@ -36,7 +36,7 @@ public class PlatformController_SC : MonoBehaviour
 
     private void CheckPlatformCollision()
     {
-        // Ön ve arka tekerleðin temas ettiði "Ground" katmanýndaki platformlarý kontrol ediyoruz
+        // ï¿½n ve arka tekerleï¿½in temas ettiï¿½i "Ground" katmanï¿½ndaki platformlarï¿½ kontrol ediyoruz
         CheckTireCollision(tireFront.transform.position);
         CheckTireCollision(tireBack.transform.position);
     }
@@ -45,28 +45,29 @@ public class PlatformController_SC : MonoBehaviour
     {
         #region Platform Renk Uyumu Kodu
 
-        // OverlapCircle ile "Ground" katmanýndaki en yakýn platformu buluyoruz
-        Collider2D collider = Physics2D.OverlapCircle(position, 0.3f, LayerMask.GetMask("Ground")); // Bugfixlendi 0.3f ideal deðer, daha az yapmayýn.
+        // OverlapCircle ile "Ground" katmanï¿½ndaki en yakï¿½n platformu buluyoruz
+        Collider2D collider = Physics2D.OverlapCircle(position, 0.3f, LayerMask.GetMask("Ground")); // Bugfixlendi 0.3f ideal deï¿½er, daha az yapmayï¿½n.
 
         if (collider != null)
         {
-            // Platformun SpriteShapeRenderer bileþenine eriþiyoruz
+            // Platformun SpriteShapeRenderer bileï¿½enine eriï¿½iyoruz
             SpriteShapeRenderer platformRenderer = collider.GetComponent<SpriteShapeRenderer>();
             if (platformRenderer != null)
             {
                 // Platform materyali
-                Material platformMaterial = platformRenderer.material; // Fill materiali alýyor.
+                Material platformMaterial = platformRenderer.materials[1]; // Fill materiali alï¿½yor.
+                Debug.Log(platformMaterial);
 
                 // Renk uyumunu kontrol ediyoruz
                 bool isColorMatch = false;
 
 
-                // Materyal isimlerini karþýlaþtýr
-                if (CleanMaterialName(platformMaterial.name) == "White_Platform_Fill")
+                // Materyal isimlerini karï¿½ï¿½laï¿½tï¿½r
+                if (CleanMaterialName(platformMaterial.name) == "PlatformWhite")
                 {
                     isColorMatch = true;
                 }
-                else if (IsColorMatch(platformMaterial, PlatforMaterials[0], carMaterialController.redMaterial)) // IsColorMatch fonksiyonuna gönderiyor kontrol saðlýyor.
+                else if (IsColorMatch(platformMaterial, PlatforMaterials[0], carMaterialController.redMaterial)) // IsColorMatch fonksiyonuna gï¿½nderiyor kontrol saï¿½lï¿½yor.
                 {
                     isColorMatch = true;
                 }
@@ -84,15 +85,15 @@ public class PlatformController_SC : MonoBehaviour
                 }
 
                 #region Renk Kontrol
-                // Eðer renk uyumluysa isTrigger'ý false yap, deðilse true yap
+                // Eï¿½er renk uyumluysa isTrigger'ï¿½ false yap, deï¿½ilse true yap
                 if (isColorMatch)
                 {
-                    // Renk uyumlu ise hemen geç
+                    // Renk uyumlu ise hemen geï¿½
                     collider.isTrigger = false;
                 }
                 else
                 {
-                    // Renk uyumsuz ise 0.5 saniye bekleyip geç
+                    // Renk uyumsuz ise 0.5 saniye bekleyip geï¿½
                     StartCoroutine(SetTriggerWithDelay(collider, true, colorChangeDelay));
                 }
                 #endregion
@@ -102,32 +103,32 @@ public class PlatformController_SC : MonoBehaviour
         #endregion
     }
 
-    // Platformlar arasý geçiþte sýkýntý yaratmamasý için delay eklendi.
+    // Platformlar arasï¿½ geï¿½iï¿½te sï¿½kï¿½ntï¿½ yaratmamasï¿½ iï¿½in delay eklendi.
     private IEnumerator SetTriggerWithDelay(Collider2D collider, bool triggerValue, float delay)
     {
         yield return new WaitForSeconds(delay);
-        collider.isTrigger = triggerValue; // Uyumlu deðilse trigger'ý true yap
+        collider.isTrigger = triggerValue; // Uyumlu deï¿½ilse trigger'ï¿½ true yap
 
-        // bekledikten sonra isGrounded'ý false yap
-        StartCoroutine(SetIsGroundedFalseWithDelay()); // Platformlar arasý rotation sorununun çözülmesi için eklendi.
+        // bekledikten sonra isGrounded'ï¿½ false yap
+        StartCoroutine(SetIsGroundedFalseWithDelay()); // Platformlar arasï¿½ rotation sorununun ï¿½ï¿½zï¿½lmesi iï¿½in eklendi.
     }
 
     private IEnumerator SetIsGroundedFalseWithDelay()
     {
-        yield return new WaitForSeconds(0.2f); // min deðer 0.2f azaltýlmamalý, arttýrýlabilir duruma göre.
-        tireMovementSc.isGrounded = false; // gecikmeli olarak isGrounded false yapýlýr platform geçiþlerindeki bugu önlemesi için yapýldý.
+        yield return new WaitForSeconds(0.2f); // min deï¿½er 0.2f azaltï¿½lmamalï¿½, arttï¿½rï¿½labilir duruma gï¿½re.
+        tireMovementSc.isGrounded = false; // gecikmeli olarak isGrounded false yapï¿½lï¿½r platform geï¿½iï¿½lerindeki bugu ï¿½nlemesi iï¿½in yapï¿½ldï¿½.
     }
 
-    #region Platform + Araç Material Kontrolü
+    #region Platform + Araï¿½ Material Kontrolï¿½
     private bool IsColorMatch(Material platformMaterial, Material platformReferenceMaterial, Material carMaterial)
     {
-        return CleanMaterialName(platformMaterial.name) == CleanMaterialName(platformReferenceMaterial.name) && carMaterialController.currentMat == carMaterial; //mevcut platform + koda atanan material + arabanýn rengi
+        return CleanMaterialName(platformMaterial.name) == CleanMaterialName(platformReferenceMaterial.name) && carMaterialController.currentMat == carMaterial; //mevcut platform + koda atanan material + arabanï¿½n rengi
     }
     #endregion
 
-    #region Instance Yazisini Kaldýr (Clean Name)
+    #region Instance Yazisini Kaldï¿½r (Clean Name)
 
-    private string CleanMaterialName(string materialName) // Instance yazýsýný yok ediyoruz.
+    private string CleanMaterialName(string materialName) // Instance yazï¿½sï¿½nï¿½ yok ediyoruz.
     {
         return materialName.Replace(" (Instance)", "");
     }

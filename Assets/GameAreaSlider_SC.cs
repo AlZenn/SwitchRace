@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,19 +7,25 @@ using UnityEngine.UI;
 public class GameAreaSlider_SC : MonoBehaviour
 {
     [Header("Player & Target")]
-    [SerializeField] private GameObject player; // player atamasý
-    [SerializeField] private GameObject target; // hedef end game atamasý
+    [SerializeField] private GameObject player; // player atamasï¿½
+    [SerializeField] private GameObject target; // hedef end game atamasï¿½
 
     [Header("Slider & SliderText")]
     [SerializeField] private Slider GameArenaSlider; // slider
     [SerializeField] private Text HandleText; // slider handle text
 
-    private float initialDistance; // baþlangýç mesafesi
+    private float initialDistance; // baï¿½langï¿½ï¿½ mesafesi
+
+    private void Awake()
+    {
+        target = GameObject.FindGameObjectWithTag("FinishLine");
+    }
 
     void Start()
     {
-        // Ýlk mesafeyi kaydediyoruz ki oyuncu hedefe yaklaþtýkça bu mesafeye göre slider deðerini hesaplayabilelim
-        initialDistance = Vector3.Distance(player.transform.position, target.transform.position); // vector3.distance 2 deðer arasýndaki mesafeyi hesaplar.
+        // ï¿½lk mesafeyi kaydediyoruz ki oyuncu hedefe yaklaï¿½tï¿½kï¿½a bu mesafeye gï¿½re slider deï¿½erini hesaplayabilelim
+        initialDistance = Vector3.Distance(player.transform.position, target.transform.position); // vector3.distance 2 deï¿½er arasï¿½ndaki mesafeyi hesaplar.
+        
 
         // Bugfix
         GameArenaSlider.value = 0f;
@@ -27,12 +34,12 @@ public class GameAreaSlider_SC : MonoBehaviour
 
     void Update()
     {
-        // Anlýk mesafeyi hesaplayýp text'e yazýyoruz
+        // Anlï¿½k mesafeyi hesaplayï¿½p text'e yazï¿½yoruz
         float currentDistance = Vector3.Distance(player.transform.position, target.transform.position);
         HandleText.text = currentDistance.ToString("F0") + "m"; 
 
-        // Slider deðerini güncelliyoruz, hedefe yaklaþtýkça 1'e yaklaþýr
-        GameArenaSlider.value = Mathf.Clamp01(1 - (currentDistance / initialDistance)); // mathf.clamp 0 ile 1 arasýnda deðer döndürür slider için gerekli slider 0-1 arasýnda value alýyor. 
-        // mevcut mesafeden baþlangýcý çýkartýyoruz.
+        // Slider deï¿½erini gï¿½ncelliyoruz, hedefe yaklaï¿½tï¿½kï¿½a 1'e yaklaï¿½ï¿½r
+        GameArenaSlider.value = Mathf.Clamp01(1 - (currentDistance / initialDistance)); // mathf.clamp 0 ile 1 arasï¿½nda deï¿½er dï¿½ndï¿½rï¿½r slider iï¿½in gerekli slider 0-1 arasï¿½nda value alï¿½yor. 
+        // mevcut mesafeden baï¿½langï¿½cï¿½ ï¿½ï¿½kartï¿½yoruz.
     }
 }

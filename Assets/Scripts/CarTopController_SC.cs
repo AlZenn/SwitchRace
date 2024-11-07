@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-//using Unity.VisualScripting; // deneme kütüphane
+using TMPro;
+//using Unity.VisualScripting; // deneme kÃ¼tÃ¼phane
 using UnityEngine;
-//using UnityEngine.PlayerLoop; // deneme kütüphane
+//using UnityEngine.PlayerLoop; // deneme kÃ¼tÃ¼phane
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -10,14 +11,14 @@ public class CarTopController_SC : MonoBehaviour
 {
     [SerializeField] private GameObject _player;
     //[SerializeField] private Collider2D _tavanCollider;
-    // animator eklenebilir public death animation için
+    // animator eklenebilir public death animation iÃ§in
 
-    [SerializeField] private float _contactTime = 0f; // temas süresi default 0
-    [SerializeField] private float _tavanLifeTime = 2f; // temas süresi
+    [SerializeField] private float _contactTime = 0f; // temas sÃ¼resi default 0
+    [SerializeField] private float _tavanLifeTime = 2f; // temas sÃ¼resi
     [SerializeField] private bool isContact = false; // temas ediyor mu
 
     [SerializeField] private GameObject denemeYazi;                    // deneme
-    [SerializeField] private Text denemeYaziText;                    // deneme
+    [SerializeField] private TextMeshProUGUI denemeYaziText;                    // deneme
 
     private void Awake()
     {
@@ -45,10 +46,10 @@ public class CarTopController_SC : MonoBehaviour
 
     void Update()
     {
-        if (isContact) // eðer temas varsa saniye saysýn
+        if (isContact) // eÄŸer temas varsa saniye saysÄ±n
         {
-            _contactTime += Time.deltaTime; // süre arttýr
-            denemeYaziText.text = _contactTime.ToString("F2") + " uwu";                     // deneme
+            _contactTime += Time.deltaTime; // sÃ¼re arttÄ±r
+            denemeYaziText.text = _contactTime.ToString("F2") + " Time left to restart";                     // deneme
             denemeYazi.SetActive(true);                     // deneme
 
             if (_contactTime >= _tavanLifeTime)
@@ -62,22 +63,22 @@ public class CarTopController_SC : MonoBehaviour
     private IEnumerator PlayerDeath()
     {
         #region Animasyon kodu 
-        //animator için gerekli kod
+        //animator iÃ§in gerekli kod
         /*
         if (animator != null)
         {
             animator.SetTrigger("Death");
             yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length); 
-        animasyon süresi kadar bekle
+        animasyon sÃ¼resi kadar bekle
         }
          */
         #endregion
 
-        //playeri yok et ve sahneyi tekrar yükle
+        //playeri yok et ve sahneyi tekrar yÃ¼kle
         //Destroy(_player);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
-        yield return null; // cooroutine hatasýný engellemek için.
+        yield return null; // cooroutine hatasÄ±nÄ± engellemek iÃ§in.
     }
 
 }
