@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour
     }
     public void Level1Loader()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(16);
         Time.timeScale = 1;
     }
 
