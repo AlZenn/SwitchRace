@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,13 @@ using UnityEngine.SceneManagement;
 public class DikenTuzagi_SC : MonoBehaviour
 {
     [SerializeField] private CarMaterialController carMaterialController;
+    AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
+
     void Start()
     {
         carMaterialController = GameObject.FindWithTag("Player").GetComponent<CarMaterialController>();
@@ -17,6 +25,7 @@ public class DikenTuzagi_SC : MonoBehaviour
         {
             Destroy(collision.gameObject);
             reloadScene(); // animasyon koyulacaksa bekleme kodu yazýlabilir.
+            audioManager.PlaySFX(audioManager.deathSFX);
         }
         else if (carMaterialController.currentMat.name == "GreenMaterial")
         {

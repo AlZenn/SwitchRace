@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,12 @@ public class HareketTuzagi_SC : MonoBehaviour
 
     private Transform currentTarget;     // Þu anki hedef
     private bool reachedTarget1 = false; // Ýlk hedefe ulaþýp ulaþmadýðýný kontrol eder
-    
+    AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     void Start()
     {
@@ -56,6 +62,7 @@ public class HareketTuzagi_SC : MonoBehaviour
         {
             Destroy(collision.gameObject);
             reloadScene(); // animasyon koyulacaksa bekleme kodu yazýlabilir.
+            audioManager.PlaySFX(audioManager.deathSFX);
         }
         else if (carMaterialController.currentMat.name == "RedMaterial")
         {

@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class FinishLine : MonoBehaviour
 {
@@ -13,11 +15,19 @@ public class FinishLine : MonoBehaviour
     [SerializeField] float threeStarsCountTime;
     [SerializeField] float twoStarsCountTime;
     private float startTime;
+    private LevelManager levelManager;
+    AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     void Start()
     {
         startTime = Time.time; // Oyunun başlangıç süresini kaydet
         winPanel.SetActive(false); // Oyuna başlarken win ekranını gizle
+        levelManager = FindObjectOfType<LevelManager>(); // LevelManager'ı bul
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -34,6 +44,8 @@ public class FinishLine : MonoBehaviour
         Time.timeScale = 0; // Oyun hareketini durdur
         float finishTime = Time.time - startTime; // Geçen süreyi hesapla
         ShowStars(finishTime); // Süreye göre yıldız sayısını belirle
+        levelManager.CompleteLevel(); // Seviye tamamlandı
+        audioManager.PlaySFX(audioManager.winSFX);
     }
 
     void ShowStars(float finishTime)
