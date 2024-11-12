@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FinishLine : MonoBehaviour
 {
@@ -40,23 +41,23 @@ public class FinishLine : MonoBehaviour
         int randomText = Random.Range(0, 3);
         if (finishTime <= threeStarsCountTime) // En iyi süre aralığı
         {
-            stars[0].SetActive(true); // 3 yıldız göster
-            stars[1].SetActive(true);
-            stars[2].SetActive(true);
+            stars[0].GetComponent<Image>().enabled = true; // 3 yıldız göster
+            stars[1].GetComponent<Image>().enabled = true;
+            stars[2].GetComponent<Image>().enabled = true;
             threeStarTexts[randomText].SetActive(true);
         }
         else if (finishTime <= twoStarsCountTime) // Orta süre aralığı
         {
-            stars[0].SetActive(true); // 2 yıldız göster
-            stars[1].SetActive(true);
-            stars[2].SetActive(false);
+            stars[0].GetComponent<Image>().enabled = true; // 2 yıldız göster
+            stars[1].GetComponent<Image>().enabled = true;
+            stars[2].GetComponent<Image>().enabled = false;
             twoStarTexts[randomText].SetActive(true);
         }
         else // Daha uzun sürede bitirme
         {
-            stars[0].SetActive(true); // 1 yıldız göster
-            stars[1].SetActive(false);
-            stars[2].SetActive(false);
+            stars[0].GetComponent<Image>().enabled = true; // 1 yıldız göster
+            stars[1].GetComponent<Image>().enabled = false;
+            stars[2].GetComponent<Image>().enabled = false;
             oneStarTexts[randomText].SetActive(true);
         }
     }

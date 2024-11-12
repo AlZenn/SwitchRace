@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -7,11 +9,37 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] GameObject pausePanel;
+    
+    private float timer, refresh, avgFramerate;
+    private string display = "{0} FPS";
+    public TextMeshProUGUI fpsText;
 
     private void Awake()
     {
-        pausePanel.SetActive(false);
+        if (pausePanel!=null)
+        {
+            pausePanel.SetActive(false);
+            Time.timeScale = 1;
+        }
+        
     }
+
+    private void Start()
+    {
+        Application.targetFrameRate = 120;
+        QualitySettings.vSyncCount = 0;
+    }
+
+    private void Update()
+    {
+            float timelapse = Time.smoothDeltaTime;
+            timer = timer <= 0 ? refresh : timer -= timelapse;
+
+            if(timer <=0) avgFramerate = (int) (1f / timelapse);
+            fpsText.text = string.Format(display,avgFramerate.ToString());
+        
+    }
+
     public void Level1Loader()
     {
         SceneManager.LoadScene(1);
@@ -21,6 +49,7 @@ public class UIManager : MonoBehaviour
     public void MainMenuLoader()
     {
         SceneManager.LoadScene(0);
+        Time.timeScale = 1;
     }
 
     public void LevelAgainLoader()
@@ -38,18 +67,43 @@ public class UIManager : MonoBehaviour
 
     public void PauseButton()
     {
-        pausePanel.SetActive(true);
-        Time.timeScale = 0;
+        if (pausePanel!=null)
+        {
+            pausePanel.SetActive(true);
+            Time.timeScale = 0;
+        }
+        
+        
     }
 
     public void ResumeButton()
     {
-        pausePanel.SetActive(false);
-        Time.timeScale = 1;
+        if (pausePanel!=null)
+        {
+            pausePanel.SetActive(false);
+            Time.timeScale = 1;
+        }
+        
     }
 
     public void QuitButton()
     {
         Application.Quit();
     }
+    
+    // Seviye adını string ile alarak sahneyi yükleyen fonk
+    public void LoadLevelString(string levelName)
+    {
+        // Sahnenin mevcut olup olmadığını kontrol et
+        if (Application.CanStreamedLevelBeLoaded(levelName))
+        {
+            SceneManager.LoadScene(levelName);
+            Debug.Log($"{levelName} sahnesi yüklendi.");
+        }
+        else
+        {
+            Debug.LogError($"{levelName} isimli bir sahne mevcut değil.");
+        }
+    }
 }
+

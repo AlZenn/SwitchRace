@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -40,8 +38,8 @@ public class CarMaterialController : MonoBehaviour
         {
             renderer.material = newMaterial;
             currentMat = newMaterial; // diğer kodlarda erişebilmek için.
+            
         }
-        
         //Debug.Log(currentMat);
     }
 }
