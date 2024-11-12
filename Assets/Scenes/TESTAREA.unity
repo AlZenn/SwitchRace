@@ -5242,6 +5242,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 5.5599995
       objectReference: {fileID: 0}
+    - target: {fileID: 5131312347512660113, guid: f02dc2d3ea3f19643bb07e24374e3290, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -9.971882
+      objectReference: {fileID: 0}
     - target: {fileID: 5131312347539165196, guid: f02dc2d3ea3f19643bb07e24374e3290, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -5438,6 +5442,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 5.5599995
       objectReference: {fileID: 0}
+    - target: {fileID: 5131312348574562864, guid: f02dc2d3ea3f19643bb07e24374e3290, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -9.971882
+      objectReference: {fileID: 0}
+    - target: {fileID: 5131312348574562866, guid: f02dc2d3ea3f19643bb07e24374e3290, type: 3}
+      propertyPath: cameraZoom
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5131312348590863567, guid: f02dc2d3ea3f19643bb07e24374e3290, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -5468,6 +5480,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5131312348713075520, guid: f02dc2d3ea3f19643bb07e24374e3290, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5131312348799187689, guid: f02dc2d3ea3f19643bb07e24374e3290, type: 3}
+      propertyPath: m_BiasX
+      value: 0.073999844
+      objectReference: {fileID: 0}
+    - target: {fileID: 5131312348799187689, guid: f02dc2d3ea3f19643bb07e24374e3290, type: 3}
+      propertyPath: m_SoftZoneWidth
+      value: 0.528
+      objectReference: {fileID: 0}
+    - target: {fileID: 5131312348799187689, guid: f02dc2d3ea3f19643bb07e24374e3290, type: 3}
+      propertyPath: m_CameraDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5131312348799187689, guid: f02dc2d3ea3f19643bb07e24374e3290, type: 3}
+      propertyPath: m_TargetMovementOnly
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
