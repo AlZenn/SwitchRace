@@ -1,67 +1,97 @@
-using System;
+﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class TireGroundController_SC : MonoBehaviour
 {
     public TireMovement_SC tiresc;
     private Coroutine groundCheckCoroutine;
-    [SerializeField] private float destoryTime = 5f;
 
-    private void OnCollisionStay2D(Collision2D collision)
+    //public Text denemeYazi;
+
+    [Header("Tire Colliders")]
+    public Collider2D tireCollider1; // İlk tekerlek collider'ı
+    public Collider2D tireCollider2; // İkinci tekerlek collider'ı
+
+    [SerializeField] private float groundCheckRadius = 0.45f; // Tekerleklerin çevresindeki kontrol yarıçapı
+    [SerializeField] private float destroyTime = 5f; // Zeminle temasın olmadığı süre
+
+    private void Awake()
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        tiresc = this.gameObject.GetComponent<TireMovement_SC>();
+        tireCollider1 = GameObject.FindWithTag("tire1").GetComponent<CircleCollider2D>();
+        tireCollider2 = GameObject.FindWithTag("tire2").GetComponent<CircleCollider2D>();
+    }
+
+    private void Update()
+    {
+        // Her frame tekerleklerin zeminde olup olmadığını kontrol et
+        CheckGroundStatus();
+    }
+
+    private void CheckGroundStatus()
+    {
+        // İlk tekerleğin çevresinde Ground layer'ında obje var mı kontrol et
+        bool isTire1Grounded = Physics2D.OverlapCircle(tireCollider1.transform.position, groundCheckRadius, LayerMask.GetMask("Ground")) != null;
+
+        // İkinci tekerleğin çevresinde Ground layer'ında obje var mı kontrol et
+        bool isTire2Grounded = Physics2D.OverlapCircle(tireCollider2.transform.position, groundCheckRadius, LayerMask.GetMask("Ground")) != null;
+
+        // Eğer her iki tekerlek de zemindeyse, isGrounded true olsun
+        if (isTire1Grounded || isTire2Grounded)
         {
             tiresc.isGrounded = true;
-
-            // Daha �nce �al��an bir coroutine varsa onu iptal ediyoruz
+            // Eğer coroutine çalışıyorsa, durdurun
             if (groundCheckCoroutine != null)
             {
                 StopCoroutine(groundCheckCoroutine);
                 groundCheckCoroutine = null;
             }
         }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        else
         {
-            // Coroutine ba�lat�yoruz ve 0.5 saniye bekliyoruz
+            tiresc.isGrounded = false;
+            // Eğer isGrounded false ise coroutine'i başlat
             if (groundCheckCoroutine == null)
             {
-                groundCheckCoroutine = StartCoroutine(CheckGroundedStatus());
+                groundCheckCoroutine = StartCoroutine(CheckGroundedStatusCoroutine());
             }
         }
     }
 
-    private IEnumerator CheckGroundedStatus()
+    private IEnumerator CheckGroundedStatusCoroutine()
     {
-        // 7 saniye boyunca isGrounded durumunu kontrol eder
+        // Zeminle temas kontrolü için coroutine başlatıyoruz
         float elapsedTime = 0f;
-        while (elapsedTime < destoryTime)
+        while (elapsedTime < destroyTime)
         {
-            Debug.Log(elapsedTime);
-            if (Physics2D.OverlapCircle(transform.position, 0.1f, LayerMask.GetMask("Ground")))
+            // Her 0.5 saniyede bir kontrol yapalım
+            if (tiresc.isGrounded)
             {
-                // E�er zeminle temas sa�lan�rsa isGrounded'i true yap ve coroutine'i sonland�r
-                tiresc.isGrounded = true;
                 groundCheckCoroutine = null;
                 yield break;
             }
 
-            // E�er hala zeminle temas yoksa isGrounded'i false olarak tut ve s�reyi artt�r
-            tiresc.isGrounded = false;
             elapsedTime += 0.5f;
+            //denemeYazi.text = elapsedTime.ToString("F1");
             yield return new WaitForSeconds(0.5f);
         }
 
-        // 7 saniye boyunca isGrounded false kald�ysa, sahneyi yeniden y�kle
+        // Eğer 5 saniye boyunca zeminde değilsen, sahneyi yeniden yükle
         if (!tiresc.isGrounded)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         groundCheckCoroutine = null;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        // Gizmos rengi ve konumu ayarlanıyor
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(tireCollider1.transform.position, groundCheckRadius);
+        Gizmos.DrawWireSphere(tireCollider2.transform.position, groundCheckRadius);
     }
 }

@@ -7,6 +7,9 @@ TagManager:
   - Ground
   - Car
   - Nitro
+  - FinishLine
+  - tire1
+  - tire2
   layers:
   - Default
   - TransparentFX
