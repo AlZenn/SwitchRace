@@ -44,7 +44,11 @@ public class FinishLine : MonoBehaviour
         Time.timeScale = 0; // Oyun hareketini durdur
         float finishTime = Time.time - startTime; // Geçen süreyi hesapla
         ShowStars(finishTime); // Süreye göre yıldız sayısını belirle
-        levelManager.CompleteLevel(); // Seviye tamamlandı
+        if (levelManager !=null)
+        {
+            levelManager.CompleteLevel(); // Seviye tamamlandı
+
+        }
         audioManager.PlaySFX(audioManager.winSFX);
     }
 
