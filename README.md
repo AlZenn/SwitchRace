@@ -1,6 +1,6 @@
 # Switch Race
 
-Refklekslere dayalı renkli bir yarış oyunudur. Unity 2D kullanılarak yapılmıştır.
+Reflekslere dayalı renkli bir yarış oyunudur. Unity 2D kullanılarak yapılmıştır.
 
 ## Geliştirici Ekibi
 
