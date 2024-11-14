@@ -38,8 +38,8 @@ public class CarMaterialController : MonoBehaviour
         {
             renderer.material = newMaterial;
             currentMat = newMaterial; // diğer kodlarda erişebilmek için.
+            
         }
-        
         //Debug.Log(currentMat);
     }
 }
