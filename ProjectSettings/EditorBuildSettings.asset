@@ -9,6 +9,51 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: a8a181fd680ead54e86b5a94ae303cd1
   - enabled: 1
-    path: Assets/Scenes/test.unity
+    path: Assets/Scenes/Levels/YeniSeviyeler/Level1.unity
+    guid: f032d907846be2542966e5c5fd944d06
+  - enabled: 1
+    path: Assets/Scenes/Levels/YeniSeviyeler/Level2.unity
+    guid: 53b7f64db484cb84c97e21586090e1ae
+  - enabled: 1
+    path: Assets/Scenes/Levels/YeniSeviyeler/Level3.unity
+    guid: 5d7146c6444fde14281e2323afb4456e
+  - enabled: 1
+    path: Assets/Scenes/Levels/YeniSeviyeler/Level4.unity
+    guid: 061d945b3ce73fe4a9ce03b62bc4f432
+  - enabled: 1
+    path: Assets/Scenes/Levels/YeniSeviyeler/Level5.unity
+    guid: c00a177157cc7dc4ca6da2fe1a07de6e
+  - enabled: 1
+    path: Assets/Scenes/Levels/YeniSeviyeler/Level6.unity
+    guid: ce4039f211d4ab94fac61f138996ee99
+  - enabled: 1
+    path: Assets/Scenes/Levels/YeniSeviyeler/Level7.unity
+    guid: eee0157f459356448b4c9077b1a9dba8
+  - enabled: 1
+    path: Assets/Scenes/Levels/YeniSeviyeler/Level8.unity
+    guid: 93a75026920904a4880cd319b710dbfd
+  - enabled: 1
+    path: Assets/Scenes/Levels/YeniSeviyeler/Level9.unity
+    guid: b0bb325ff3e0f6d4daf7aefb16b70b00
+  - enabled: 1
+    path: Assets/Scenes/Levels/YeniSeviyeler/Level10.unity
+    guid: 6d0971ad6860e1a46ae0816458a3bb3e
+  - enabled: 1
+    path: Assets/Scenes/Levels/YeniSeviyeler/Level11.unity
+    guid: b2325594343af674896a5d719ab516b8
+  - enabled: 1
+    path: Assets/Scenes/Levels/YeniSeviyeler/Level12.unity
+    guid: ea2ce2deaf881ea4894a69ba20bafd2c
+  - enabled: 1
+    path: Assets/Scenes/Levels/YeniSeviyeler/Level13.unity
+    guid: c4dd474d3b5122047a7e622db6c97afe
+  - enabled: 1
+    path: Assets/Scenes/Levels/YeniSeviyeler/Level14.unity
+    guid: 75cc0415c98f9c140940b4b2495d7fa4
+  - enabled: 1
+    path: Assets/Scenes/Levels/YeniSeviyeler/Level15.unity
+    guid: dfddc7473b9d8aa4a9031064a2ebaa42
+  - enabled: 1
+    path: Assets/Scenes/TESTAREA.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}

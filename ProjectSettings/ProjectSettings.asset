@@ -42,7 +42,7 @@ PlayerSettings:
   m_SplashScreenLogos:
   - logo: {fileID: 10404, guid: 0000000000000000e000000000000000, type: 0}
     duration: 2
-  m_VirtualRealitySplashScreen: {fileID: 0}
+  m_VirtualRealitySplashScreen: {fileID: 2800000, guid: cd6f2a7beb972b547a62c9452af0bb2d, type: 3}
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 1920
   defaultScreenHeight: 1080
@@ -273,21 +273,34 @@ PlayerSettings:
   AndroidMinifyDebug: 0
   AndroidValidateAppBundleSize: 1
   AndroidAppBundleSizeToValidate: 150
-  m_BuildTargetIcons: []
+  m_BuildTargetIcons:
+  - m_BuildTarget: 
+    m_Icons:
+    - serializedVersion: 2
+      m_Icon: {fileID: 2800000, guid: 577d0de0b8d686947b8b3808eeaeb626, type: 3}
+      m_Width: 128
+      m_Height: 128
+      m_Kind: 0
   m_BuildTargetPlatformIcons:
   - m_BuildTarget: Android
     m_Icons:
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 577d0de0b8d686947b8b3808eeaeb626, type: 3}
+      - {fileID: 2800000, guid: 577d0de0b8d686947b8b3808eeaeb626, type: 3}
       m_Width: 432
       m_Height: 432
       m_Kind: 2
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 577d0de0b8d686947b8b3808eeaeb626, type: 3}
+      - {fileID: 2800000, guid: 577d0de0b8d686947b8b3808eeaeb626, type: 3}
       m_Width: 324
       m_Height: 324
       m_Kind: 2
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 577d0de0b8d686947b8b3808eeaeb626, type: 3}
+      - {fileID: 2800000, guid: 577d0de0b8d686947b8b3808eeaeb626, type: 3}
       m_Width: 216
       m_Height: 216
       m_Kind: 2
@@ -307,7 +320,8 @@ PlayerSettings:
       m_Height: 81
       m_Kind: 2
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 577d0de0b8d686947b8b3808eeaeb626, type: 3}
       m_Width: 192
       m_Height: 192
       m_Kind: 1
@@ -337,7 +351,8 @@ PlayerSettings:
       m_Height: 36
       m_Kind: 1
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 577d0de0b8d686947b8b3808eeaeb626, type: 3}
       m_Width: 192
       m_Height: 192
       m_Kind: 0

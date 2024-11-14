@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TireMovement_SC : MonoBehaviour
 {
@@ -16,78 +15,80 @@ public class TireMovement_SC : MonoBehaviour
     [SerializeField] private float rotationSpeed = 180f;  // Araç dönüş hızı
     [SerializeField] private float airRotation = 30f; // Araç havadayken dönüş hızı
 
+    [Header("NitroProperties")]
     public float nitroSpeed = 0f; // Nitro hızı
 
+    [Header("Audio Settings")]
+    public AudioSource engineAudioSource; // Motor sesi kaynağı
+    public AudioClip engineClip;          // Motor sesi klibi
+    public float minPitch = 0.8f;         // Minimum pitch değeri (rölanti sesi)
+    public float maxPitch = 2.0f;         // Maksimum pitch değeri (hızlı sürüş sesi)
+
     private Rigidbody2D rb;
-    public bool isGrounded = false; // Araç yere temas ediyor mu?
-    private bool isInteractButtonGas; // Gaz butonuna basılma durumu
-    private bool isInteractButtonBreak; // Fren butonuna basılma durumu
+    public bool isGrounded = false;       // Araç yere temas ediyor mu?
+    private bool isInteractButtonGas;     // Gaz butonuna basılma durumu
+    private bool isInteractButtonBreak;   // Fren butonuna basılma durumu
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>(); // Player'in rigidbodysini aldık
+        
+        // Motor sesi kaynağını ayarlıyoruz
+        engineAudioSource.clip = engineClip;
+        engineAudioSource.loop = true;
+        engineAudioSource.Play();
     }
 
+    void Update()
+    {
+        // W ve S tuşları ile gaz ve fren kontrolü
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            gasTrue();
+        }
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            gasFalse();
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            breakTrue();
+        }
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            breakFalse();
+        }
+    }
+    
     void FixedUpdate()
     {
-
-        if (isGrounded)
+        // Gaz butonuna basıldığında hızlanma ve ses tonunu artırma
+        if (isGrounded && isInteractButtonGas)
         {
-            // Gaz butonuna basıldığında hareket etmesi
-            if (isInteractButtonGas)
+            if (Mathf.Abs(_frontTireRB.angularVelocity) < maxSpeed)
             {
-                if (Mathf.Abs(_frontTireRB.angularVelocity) < maxSpeed)
-                {
-                    _frontTireRB.AddTorque((-_speed + nitroSpeed) * Time.fixedDeltaTime); // Nitro hızını ekle
-                }
-
-                if (Mathf.Abs(_backTireRB.angularVelocity) < maxSpeed)
-                {
-                    _backTireRB.AddTorque((-_speed + nitroSpeed) * Time.fixedDeltaTime); // Nitro hızını ekle
-                }
+                _frontTireRB.AddTorque((-_speed + nitroSpeed) * Time.fixedDeltaTime);
             }
 
-            // Fren butonuna basıldığında fren kuvveti uygula
-            if (isInteractButtonBreak)
+            if (Mathf.Abs(_backTireRB.angularVelocity) < maxSpeed)
             {
-                if (_backTireRB.angularVelocity > minSpeed && _backTireRB.angularVelocity < maxSpeed)
-                {
-                    _backTireRB.AddTorque(_speed * Time.fixedDeltaTime);  // Tork uygula
-                }
-                else
-                {
-                    _backTireRB.angularVelocity = 0; // Hız 0 ise tekerleği durdur
-                }
-
-                if (_frontTireRB.angularVelocity > minSpeed && _frontTireRB.angularVelocity < maxSpeed)
-                {
-                    _frontTireRB.AddTorque(_speed * Time.fixedDeltaTime);  // Tork uygula
-                }
-                else
-                {
-                    _frontTireRB.angularVelocity = 0; // Hız 0 ise tekerleği durdur
-                }
+                _backTireRB.AddTorque((-_speed + nitroSpeed) * Time.fixedDeltaTime);
             }
         }
 
-        // Aracın dönüş hareketi ve havada dönüş
+        // Fren butonuna basıldığında fren kuvveti uygulama
+        if (isGrounded && isInteractButtonBreak)
+        {
+            ApplyBrakes();
+        }
+
+        // Aracın havada dönüş hareketi
         if (!isGrounded)
         {
-            float rotationAmount = rotationSpeed * Time.fixedDeltaTime;
-
-            if (isInteractButtonGas)
-            {
-                rb.MoveRotation(rb.rotation + rotationAmount); // İleri dönüş
-            }
-            else if (isInteractButtonBreak)
-            {
-                rb.MoveRotation(rb.rotation - rotationAmount); // Geri dönüş
-            }
-            else
-            {
-                rb.MoveRotation(rb.rotation - airRotation * Time.fixedDeltaTime); // Yavaş dönüş
-            }
+            AirRotation();
         }
+
+        UpdateEngineSound(); // Motor sesini güncelle
     }
 
     // Gaz ve Fren kontrol fonksiyonları
@@ -96,9 +97,64 @@ public class TireMovement_SC : MonoBehaviour
     public void breakTrue() => isInteractButtonBreak = true;
     public void breakFalse() => isInteractButtonBreak = false;
 
-    public float MaxSpeed // Nitro için hızı public yaptım
+    private void UpdateEngineSound()
     {
-        get { return maxSpeed; }
-        set { maxSpeed = value; }
+        // Calculate the current speed factor relative to max speed
+        float speedFactor = Mathf.Abs(_frontTireRB.angularVelocity) / maxSpeed;
+    
+        // Map speed to pitch range
+        float targetPitch = Mathf.Lerp(minPitch, maxPitch, speedFactor);
+
+        // Apply the pitch only if gas is pressed; otherwise, return to min pitch
+        if (isInteractButtonGas)
+        {
+            engineAudioSource.pitch = Mathf.Lerp(engineAudioSource.pitch, targetPitch, Time.deltaTime * 2f);
+        }
+        else
+        {
+            engineAudioSource.pitch = Mathf.Lerp(engineAudioSource.pitch, minPitch, Time.deltaTime * 2f);
+        }
+    }
+
+
+
+    private void ApplyBrakes()
+    {
+        // Fren kuvveti uygula ve durdurma işlemi
+        if (_backTireRB.angularVelocity > minSpeed && _backTireRB.angularVelocity < maxSpeed)
+        {
+            _backTireRB.AddTorque(_speed * Time.fixedDeltaTime);
+        }
+        else
+        {
+            _backTireRB.angularVelocity = 0;
+        }
+
+        if (_frontTireRB.angularVelocity > minSpeed && _frontTireRB.angularVelocity < maxSpeed)
+        {
+            _frontTireRB.AddTorque(_speed * Time.fixedDeltaTime);
+        }
+        else
+        {
+            _frontTireRB.angularVelocity = 0;
+        }
+    }
+
+    private void AirRotation()
+    {
+        float rotationAmount = rotationSpeed * Time.fixedDeltaTime;
+
+        if (isInteractButtonGas)
+        {
+            rb.MoveRotation(rb.rotation + rotationAmount);
+        }
+        else if (isInteractButtonBreak)
+        {
+            rb.MoveRotation(rb.rotation - rotationAmount);
+        }
+        else
+        {
+            rb.MoveRotation(rb.rotation - airRotation * Time.fixedDeltaTime);
+        }
     }
 }

@@ -6,25 +6,25 @@ using UnityEngine.SceneManagement;
 public class DikenTuzagi_SC : MonoBehaviour
 {
     [SerializeField] private CarMaterialController carMaterialController;
-    void Start()
+    private DeathAnimation deathAnimation;
+    private bool hasTriggeredDeath = false;
+    void Awake()
     {
         carMaterialController = GameObject.FindWithTag("Player").GetComponent<CarMaterialController>();
+        deathAnimation = GameObject.Find("DeathManager").GetComponent<DeathAnimation>();
+
     }
 
-    private void OnTriggerStay2D(Collider2D collision) // kýrmýzý araç, hareket tuzaðýndan geçer
+    private void OnTriggerStay2D(Collider2D collision) // kï¿½rmï¿½zï¿½ araï¿½, hareket tuzaï¿½ï¿½ndan geï¿½er
     {
-        if (carMaterialController.currentMat.name != "GreenMaterial")
+        if (carMaterialController.currentMat.name != "GreenMaterial" && !hasTriggeredDeath)
         {
-            Destroy(collision.gameObject);
-            reloadScene(); // animasyon koyulacaksa bekleme kodu yazýlabilir.
+            deathAnimation.TriggerDeathAnimation(); // Trigger death animation
+            hasTriggeredDeath = true; // Ã¶ldÃ¼ olarak kabul et
         }
         else if (carMaterialController.currentMat.name == "GreenMaterial")
         {
-            // hiçbir þey olmayacak.
+            // hiï¿½bir ï¿½ey olmayacak.
         }
-    }
-    public void reloadScene()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

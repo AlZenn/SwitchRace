@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,11 +15,17 @@ public class NitroSystem : MonoBehaviour
     private bool isBoosted = false;         // Hızlanma durumu kontrolü
     private float normalSpeed = 0f;         // Oyuncunun normal hızı
     private float nitroSpeed = 0f;          // Nitro hızı
+    AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     private void Start()
     {
         // Oyuncunun normal hızını kaydet
-        normalSpeed = tireMovement.MaxSpeed; // TireMovement_SC içindeki maksimum hızı kullan
+        normalSpeed = tireMovement.maxSpeed; // TireMovement_SC içindeki maksimum hızı kullan
     }
 
     private void Update()
@@ -64,9 +71,10 @@ public class NitroSystem : MonoBehaviour
         {
             isBoosted = true;
             // Oyuncunun hızını artır
-            tireMovement.MaxSpeed += speedBoost; // TireMovement_SC içindeki MaxSpeed'i artır
+            tireMovement.maxSpeed += speedBoost; // TireMovement_SC içindeki MaxSpeed'i artır
             nitroSpeed = speedBoost; // Nitro hızını ayarla
             nitroParticles.Play();
+            audioManager.PlaySFX(audioManager.nitroSFX);
 
             float elapsedTime = 0f; // Geçen süre
 
@@ -77,7 +85,7 @@ public class NitroSystem : MonoBehaviour
             }
 
             // Süre sonunda oyuncunun hızını normale döndür
-            tireMovement.MaxSpeed -= speedBoost; // Nitro hızını geri al
+            tireMovement.maxSpeed -= speedBoost; // Nitro hızını geri al
             nitroParticles.Stop();
             isBoosted = false;
         }

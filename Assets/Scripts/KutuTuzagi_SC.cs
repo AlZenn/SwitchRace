@@ -6,23 +6,30 @@ using UnityEngine.SceneManagement;
 public class KutuTuzagi_SC : MonoBehaviour
 {
     [SerializeField] private CarMaterialController carMaterialController;
-    void Start()
+    AudioManager audioManager;
+    private DeathAnimation deathAnimation;
+    private bool hasTriggeredDeath = false; // Bayrak ekledik
+
+    void Awake()
     {
         carMaterialController = GameObject.FindWithTag("Player").GetComponent<CarMaterialController>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        deathAnimation = GameObject.Find("DeathManager").GetComponent<DeathAnimation>();
     }
 
-    private void OnTriggerStay2D(Collider2D collision) // mavi araç, hareket tuzaðýndan geçer
+    private void OnTriggerStay2D(Collider2D collision) // mavi araÃ§, hareket tuzaÄŸÄ±ndan geÃ§er
     {
-        if (carMaterialController.currentMat.name != "BlueMaterial")
+        if (carMaterialController.currentMat.name != "BlueMaterial" && !hasTriggeredDeath) // BayraÄŸa da bakÄ±yoruz
         {
-            Destroy(collision.gameObject);
-            reloadScene(); // animasyon koyulacaksa bekleme kodu yazýlabilir.
+            deathAnimation.TriggerDeathAnimation(); // Trigger death animation
+            hasTriggeredDeath = true; // BayraÄŸÄ± true yapÄ±yoruz, bÃ¶ylece tekrar tetiklenmez
         }
         else if (carMaterialController.currentMat.name == "BlueMaterial")
         {
-            // hiçbir þey olmayacak.
+            // HiÃ§bir ÅŸey olmayacak.
         }
     }
+
     private void reloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

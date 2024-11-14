@@ -1,11 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CarMaterialController : MonoBehaviour
 {
-    public Renderer [] renderers; // Arabanın Renderer bileşeni (Materyal için)
+    [SerializeField] private ParticleSystem particleSystem;
+    public AudioSource audioSource;
+    public AudioClip soundClip;
+    
+    public Renderer[] renderers; // Arabanın Renderer bileşeni (Materyal için)
     public Button redButton;     // Kırmızı buton
     public Button blueButton;    // Mavi buton
     public Button greenButton;   // Yeşil buton
@@ -15,15 +17,15 @@ public class CarMaterialController : MonoBehaviour
     public Material blueMaterial;    // Mavi materyal
     public Material greenMaterial;   // Yeşil materyal
     public Material yellowMaterial;  // Sarı materyal
-    public Material whiteMaterial;  // Sarı materyal
+    public Material whiteMaterial;   // Beyaz başlangıç materyali
 
-    public Material currentMat;
+    public Material currentMat; // Şu anki materyal
 
-    // Başlangıçta butonlara tıklama olaylarını ekliyoruz
     private void Awake()
     {
-        currentMat = whiteMaterial; // başlangıç materyali // diğer kodlarda erişebilmek için.
+        currentMat = whiteMaterial; // Başlangıç materyali
     }
+
     void Start()
     {
         // Buton tıklamaları için olay dinleyicileri ekliyoruz
@@ -33,15 +35,37 @@ public class CarMaterialController : MonoBehaviour
         yellowButton.onClick.AddListener(() => ChangeCarMaterial(yellowMaterial)); // Sarı materyal
     }
 
+    void Update()
+    {
+        // Yön tuşları ile renk değişimi
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            ChangeCarMaterial(greenMaterial); // Yukarı ok tuşu ile yeşil
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            ChangeCarMaterial(yellowMaterial); // Sağ ok tuşu ile sarı
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            ChangeCarMaterial(redMaterial); // Sol ok tuşu ile kırmızı
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            ChangeCarMaterial(blueMaterial); // Aşağı ok tuşu ile mavi
+        }
+    }
+
     // Arabanın materyalini değiştiren fonksiyon
     void ChangeCarMaterial(Material newMaterial)
     {
+        particleSystem.Play();
+        audioSource.pitch = Random.Range(0.8f, 1.2f);
+        audioSource.PlayOneShot(soundClip);
         foreach (Renderer renderer in renderers)
         {
             renderer.material = newMaterial;
-            currentMat = newMaterial; // diğer kodlarda erişebilmek için.
+            currentMat = newMaterial; // Şu anki materyali güncelle
         }
-        
-        //Debug.Log(currentMat);
     }
 }
