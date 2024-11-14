@@ -9,6 +9,10 @@ TagManager:
   - Nitro
   - FinishLine
   - Audio
+  - tire2
+  - tire1
+  - Trap
+  - deathBodys
   layers:
   - Default
   - TransparentFX
@@ -17,7 +21,7 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
+  - deathBodys
   - 
   - 
   - 

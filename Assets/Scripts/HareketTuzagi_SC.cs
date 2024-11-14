@@ -8,23 +8,26 @@ public class HareketTuzagi_SC : MonoBehaviour
 {
     [Header("Hareket Tuzagi Properties")]
     [SerializeField] private Transform target1; // Birinci hedef
-    [SerializeField] private Transform target2; // Ýkinci hedef
-    [SerializeField] private float speed = 5f;  // Hareket hýzý 
+    [SerializeField] private Transform target2; // ï¿½kinci hedef
+    [SerializeField] private float speed = 5f;  // Hareket hï¿½zï¿½ 
+    private DeathAnimation deathAnimation;
+    private bool hasTriggeredDeath = false;
 
     [SerializeField] private CarMaterialController carMaterialController;
 
-    private Transform currentTarget;     // Þu anki hedef
-    private bool reachedTarget1 = false; // Ýlk hedefe ulaþýp ulaþmadýðýný kontrol eder
+    private Transform currentTarget;     // ï¿½u anki hedef
+    private bool reachedTarget1 = false; // ï¿½lk hedefe ulaï¿½ï¿½p ulaï¿½madï¿½ï¿½ï¿½nï¿½ kontrol eder
     AudioManager audioManager;
 
     private void Awake()
     {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        deathAnimation = GameObject.Find("DeathManager").GetComponent<DeathAnimation>();
     }
 
     void Start()
     {
-        currentTarget = target1; // Baþlangýçta ilk hedefi ayarla
+        currentTarget = target1; // Baï¿½langï¿½ï¿½ta ilk hedefi ayarla
         carMaterialController = GameObject.FindWithTag("Player").GetComponent<CarMaterialController>();
     }
 
@@ -35,38 +38,37 @@ public class HareketTuzagi_SC : MonoBehaviour
 
     void MoveTowardsTarget()
     {
-        // GameObject'i currentTarget'e doðru hareket ettir
+        // GameObject'i currentTarget'e doï¿½ru hareket ettir
         transform.position = Vector2.MoveTowards(transform.position, currentTarget.position, speed * Time.deltaTime);
 
-        // Hedefe ulaþýp ulaþmadýðýný kontrol et
+        // Hedefe ulaï¿½ï¿½p ulaï¿½madï¿½ï¿½ï¿½nï¿½ kontrol et
         if (Vector2.Distance(transform.position, currentTarget.position) < 0.1f)
         {
             if (!reachedTarget1)
             {
-                // Ýlk hedefe ulaþýldýysa, ikinci hedefe geç
+                // ï¿½lk hedefe ulaï¿½ï¿½ldï¿½ysa, ikinci hedefe geï¿½
                 currentTarget = target2;
                 reachedTarget1 = true;
             }
             else
             {
-                // Ýkinci hedefe ulaþýldýysa, ilk hedefe geri dön
+                // ï¿½kinci hedefe ulaï¿½ï¿½ldï¿½ysa, ilk hedefe geri dï¿½n
                 currentTarget = target1;
                 reachedTarget1 = false;
             }
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision) // kýrmýzý araç, hareket tuzaðýndan geçer
+    private void OnTriggerStay2D(Collider2D collision) // kï¿½rmï¿½zï¿½ araï¿½, hareket tuzaï¿½ï¿½ndan geï¿½er
     {
-        if (carMaterialController.currentMat.name != "RedMaterial")
+        if (carMaterialController.currentMat.name != "RedMaterial" && !hasTriggeredDeath)
         {
-            Destroy(collision.gameObject);
-            reloadScene(); // animasyon koyulacaksa bekleme kodu yazýlabilir.
-            audioManager.PlaySFX(audioManager.deathSFX);
+            deathAnimation.TriggerDeathAnimation(); // Trigger death animation
+            hasTriggeredDeath = true; // Ã¶ldÃ¼ olarak kabul et
         }
         else if (carMaterialController.currentMat.name == "RedMaterial")
         {
-            // hiçbir þey olmayacak.
+            // hiï¿½bir ï¿½ey olmayacak.
         }
     }
 

@@ -1630,7 +1630,6 @@ MonoBehaviour:
   - {fileID: 762647971}
   - {fileID: 968787469}
   - {fileID: 1005844102}
-  - {fileID: 2119381809}
   lockIcons:
   - {fileID: 97345743}
   - {fileID: 1802192845}
@@ -1647,7 +1646,6 @@ MonoBehaviour:
   - {fileID: 2051567625}
   - {fileID: 260949141}
   - {fileID: 1573375085}
-  - {fileID: 1119390165}
 --- !u!4 &244483133
 Transform:
   m_ObjectHideFlags: 0
@@ -6546,8 +6544,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 1271464894}
   SFXSource: {fileID: 249425318}
-  background: {fileID: 8300000, guid: 7d3ce0de4bf6cc44ebcd92c96b5494fe, type: 3}
-  nitroSFX: {fileID: 8300000, guid: 0ac39bd37ba96f44ab214002893a4441, type: 3}
+  background: {fileID: 8300000, guid: b2cca05cebefb4a4ea71681f8e03facc, type: 3}
+  nitroSFX: {fileID: 8300000, guid: ff7036c70dc08f84d992468279d363ce, type: 3}
   winSFX: {fileID: 8300000, guid: 65f8fb5ac405ffc4fa3c34637a968d21, type: 3}
   deathSFX: {fileID: 8300000, guid: 5cfca3923dceb21439f527e002d89b18, type: 3}
 --- !u!4 &1045842442
@@ -6842,11 +6840,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d706e7224c5ce734bb8b341dbd6a3cf7, type: 3}
---- !u!1 &1119390165 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1476171619314546168, guid: d706e7224c5ce734bb8b341dbd6a3cf7, type: 3}
-  m_PrefabInstance: {fileID: 1158668478}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1123556004
 GameObject:
   m_ObjectHideFlags: 0
@@ -7035,6 +7028,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1225527348}
     m_Modifications:
+    - target: {fileID: 1476171619314546168, guid: d706e7224c5ce734bb8b341dbd6a3cf7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2329710270513381258, guid: d706e7224c5ce734bb8b341dbd6a3cf7, type: 3}
       propertyPath: m_text
       value: TEST
@@ -7396,8 +7393,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 3.9355497, y: -1.7327, z: 0}
-    m_Extent: {x: 7.03745, y: 2.2181, z: 0}
+    m_Center: {x: 3.9317503, y: -1.74455, z: 0}
+    m_Extent: {x: 7.03345, y: 2.22135, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -14222,17 +14219,6 @@ GameObject:
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6130344054990594775, guid: d706e7224c5ce734bb8b341dbd6a3cf7, type: 3}
   m_PrefabInstance: {fileID: 743586766}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2119381809 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6130344054990594775, guid: d706e7224c5ce734bb8b341dbd6a3cf7, type: 3}
-  m_PrefabInstance: {fileID: 1158668478}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
